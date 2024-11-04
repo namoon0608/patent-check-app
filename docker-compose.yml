@@ -1,0 +1,19 @@
+version: '3'
+services:
+    backend:
+        build: ./backend
+        ports:
+            - '5000:5000'
+        volumes:
+            - ./backend:/app
+        restart: always # Restart the container if it stops
+        command: npm start # Or `npx nodemon server.js` for live reload
+
+    frontend:
+        build: ./frontend
+        ports:
+            - '3000:3000'
+        volumes:
+            - ./frontend:/app
+        restart: always
+        command: npm start

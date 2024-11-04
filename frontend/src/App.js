@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import InputForm from './components/InputForm';
+import ResultsDisplay from './components/ResultsDisplay';
+import SavedReports from './components/SavedReports';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [results, setResults] = useState(null);
+
+    return (
+        <div className="App">
+            <h1 className="text-3xl font-bold text-center py-4 px-5">
+                Patent Infringement Checker
+            </h1>
+            <InputForm setResults={setResults} />
+            <ResultsDisplay results={results} />
+            <SavedReports setResults={setResults} />
+        </div>
+    );
 }
 
 export default App;
