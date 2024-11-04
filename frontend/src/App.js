@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import InputForm from './components/InputForm';
 import ResultsDisplay from './components/ResultsDisplay';
 import SavedReports from './components/SavedReports';
 
 function App() {
     const [results, setResults] = useState(null);
+    const [reducerVal, forceUpdate] = useReducer((x) => x + 1, 0);
 
     return (
         <div className="App">
@@ -12,8 +13,8 @@ function App() {
                 Patent Infringement Checker
             </h1>
             <InputForm setResults={setResults} />
-            <ResultsDisplay results={results} />
-            <SavedReports setResults={setResults} />
+            <ResultsDisplay results={results} forceUpdate={forceUpdate} />
+            <SavedReports setResults={setResults} reducerVal={reducerVal} />
         </div>
     );
 }

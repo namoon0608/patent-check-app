@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function SavedReports({ setResults }) {
+function SavedReports({ setResults, reducerVal }) {
     const [reports, setReports] = useState([]);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ function SavedReports({ setResults }) {
             }
         };
         fetchReports();
-    }, []);
+    }, [reducerVal]);
 
     return (
         <div className="mt-5">

@@ -1,10 +1,8 @@
 import React from 'react';
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function ResultsDisplay({ results }) {
+function ResultsDisplay({ results, forceUpdate }) {
     if (!results) return null;
-
-    console.log(results);
 
     return (
         <div className="mt-5">
@@ -15,6 +13,7 @@ function ResultsDisplay({ results }) {
                 <>
                     {results.top_infringing_products.map((product, index) => (
                         <table
+                            key={index}
                             border="1"
                             cellSpacing="0"
                             className="table-fixed w-full max-w-7xl mx-auto border-collapse border border-slate-500 mt-4"
@@ -39,30 +38,35 @@ function ResultsDisplay({ results }) {
                                 </tr>
                             </thead>
                             <tbody className="text-center">
-                                <td
-                                    scope="row"
-                                    className="border border-slate-600 py-2 px-2.5"
-                                >
-                                    {product.product_name}
-                                </td>
-                                <td className="border border-slate-600 py-2 px-2.5">
-                                    {product.infringement_likelihood}
-                                </td>
-                                <td className="border border-slate-600 py-2 px-2.5 text-left">
-                                    <ul className="list-disc list-inside">
-                                        {product.specific_features.map(
-                                            (feature) => (
-                                                <li>{feature}</li>
-                                            )
-                                        )}
-                                    </ul>
-                                </td>
-                                <td className="border border-slate-600 py-2 px-2.5">
-                                    {product.relevant_claims.join(', ')}
-                                </td>
-                                <td className="border border-slate-600 py-2 px-2.5 text-left">
-                                    {product.explanation}
-                                </td>
+                                <tr>
+                                    <td
+                                        scope="row"
+                                        className="border border-slate-600 py-2 px-2.5"
+                                    >
+                                        {product.product_name}
+                                    </td>
+
+                                    <td className="border border-slate-600 py-2 px-2.5">
+                                        {product.infringement_likelihood}
+                                    </td>
+                                    <td className="border border-slate-600 py-2 px-2.5 text-left">
+                                        <ul className="list-disc list-inside">
+                                            {product.specific_features.map(
+                                                (feature) => (
+                                                    <li key={feature}>
+                                                        {feature}
+                                                    </li>
+                                                )
+                                            )}
+                                        </ul>
+                                    </td>
+                                    <td className="border border-slate-600 py-2 px-2.5">
+                                        {product.relevant_claims.join(', ')}
+                                    </td>
+                                    <td className="border border-slate-600 py-2 px-2.5 text-left">
+                                        {product.explanation}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     ))}
@@ -79,6 +83,7 @@ function ResultsDisplay({ results }) {
                             report: results,
                         }),
                     });
+                    forceUpdate();
                 }}
                 className="w-fit px-1.5 py-1 mx-auto mt-4 block bg-blue-500 text-white rounded"
             >

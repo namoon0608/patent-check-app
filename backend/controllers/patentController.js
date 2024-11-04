@@ -65,8 +65,9 @@ products potentially infringe the patent, specifically detailing which claims ar
         );
 
         const text = response.data.candidates[0].content.parts[0].text;
+        console.log(text);
 
-        return JSON.parse(text);
+        return JSON.parse(text.replace(/```json|```/g, ''));
     } catch (error) {
         console.error('Error in LLM analysis:', error);
         return [];
